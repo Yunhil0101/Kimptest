@@ -1,10 +1,16 @@
-/* Style général */
+/* Corps de la page */
 body {
-    position: relative;
-    background-image: url('Background.webp'); /* Replace with the actual path */
+    font-family: Arial, sans-serif;
+    color: #FFFFFF;
+    background-image: url('kid.webp'); /* Remplace par le chemin de ton image */
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
+    background-attachment: fixed; /* L'image reste en place au défilement */
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
 }
 
 body::before {
@@ -14,135 +20,81 @@ body::before {
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url('Background.webp'); /* Same background image */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    filter: grayscale(40%) brightness(70%) saturate(10%) blur(0%) contrast(50%);
-    z-index: -1; /* Ensures the filter is applied behind the content */
+    background: rgba(0, 0, 0, 0.6); /* Superposition pour rendre le texte lisible */
+    z-index: -1; /* Assure que la superposition est derrière le contenu */
 }
-
-
-
-body {
-    font-family: Arial, sans-serif;
-    color: #333;
-    background-color: #F0F0F0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.logo {
-    width: auto;
-    height: 200px;
-    scroll-margin-left: 20px;
-    margin-right: 20px;
-    opacity: 1;
-}
-
-.transparent-image {
-    position: fixed;
-    width: 1000px; /* ajustez la taille de l'image */
-    height: auto;
-    opacity: 0.8; /* ajustez la transparence de l'image */
-}
-
 
 /* Conteneur principal */
 .main-content {
-    background-color: #fff6d5;
+    background: rgba(255, 255, 255, 0.08);
     padding: 40px;
     border-radius: 15px;
     max-width: 600px;
-    margin: 0 auto; /* Centrer horizontalement */
+    margin: 0 auto;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    text-align: center;
+    z-index: 1; /* Met le contenu au-dessus de l'image de fond */
 }
-
 
 /* Header */
 .header {
     text-align: center;
     padding: 15px;
-    color: #FF9F1C;
 }
 
+.logo {
+    width: auto;
+    height: 150px;
+    margin: 10px;
+}
+
+/* Texte de présentation */
 .quiz-contain h1 {
-    font-size: 1.8em;
+    font-size: 2em;
     font-weight: bold;
-    color: hsl(0, 0%, 100%);
+    color: #ff9f1c;
 }
 
-.quiz-contain p1 {
-    color: hsl(0, 0%, 100%);
+.quiz-contain p.subtitle {
+    color: #f2f2f2;
     font-size: 1em;
-}
-
-/* Main Content */
-.main-content {
-    background-color: #FF9F1C; /* Couleur dorée douce */
-    padding: 30px;
-    border-radius: 8px;
-    width: 90%;
-    max-width: 550px;
-    text-align: center;
-    margin-top: 15px;
-}
-
-/* Suppression du cadre bleu */
-.container {
-    background: none;
+    margin-top: 5px;
 }
 
 /* Bouton CTA */
 .cta-button {
-    background-color: #ff8c00; /* Couleur dorée */
-    color: white;
-    padding: 8px 16px;
+    background: linear-gradient(90deg, #ff8c00, #ff5e3a);
+    color: #FFFFFF;
+    padding: 12px 24px;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 0.9em;
+    font-size: 1em;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(255, 94, 58, 0.4);
+    text-decoration: none;
+    margin-top: 20px;
 }
 
 .cta-button:hover {
-    background-color: #ff9f1c;
+    background: linear-gradient(90deg, #ff9f1c, #ff8c00);
+    box-shadow: 0 6px 12px rgba(255, 94, 58, 0.6);
 }
 
 /* Quiz Box Style */
 .quiz-box {
-    background-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.15);
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     margin-top: 20px;
     width: 100%;
     max-width: 500px;
-}
-
-/* Mise à jour des couleurs pour le Quiz */
-.quiz-box, #question-box, #nb-message, #result, .feedback-container {
-    background-color: #f0f0f0;
-    color: #4b0082; /* Violet foncé pour le texte */
-}
-
-.quiz-box button, #nb-message button, #question-box button, #feedback-form button {
-    background-color: #ff8c00;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.quiz-box button:hover, #nb-message button:hover, #question-box button:hover, #feedback-form button:hover {
-    background-color: #ffa500; /* Orange clair */
 }
 
 /* Feedback Page */
@@ -154,7 +106,7 @@ body {
 }
 
 .feedback-container {
-    background-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.15);
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -165,11 +117,11 @@ body {
 
 .feedback-container h1,
 .feedback-container h2 {
-    color: #4b0082; /* Violet foncé */
+    color: #ff9f1c;
 }
 
 #feedback-form label {
-    color: #4b0082;
+    color: #f2f2f2;
     font-size: 16px;
     display: block;
     margin-top: 15px;
