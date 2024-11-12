@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/jpg" href="favicon.jpg"/>
+    <title>Résultats du Quiz Santé Rénale</title>
+    <style>
+        /* Styles de base */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #4B0082;
+        }
+
+        .result-container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .result-message h3 {
+            color: #4B0082;
+            margin-bottom: 15px;
+        }
+
+        .result-message ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .result-message ul li {
+            background-color: #fff;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .result-message ul li:hover {
+            transform: translateX(10px);
+            background-color: #ffeb3b;
+        }
+
+        .result-message ul li strong {
+            margin-left: 10px;
+        }
+
+        .result-message ul li::before {
+            content: "✔️";
+            margin-right: 10px;
+            font-size: 20px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .button {
+            background-color: #FF8C00;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        .button:hover {
+            background-color: #FFA500;
+        }
+    </style>
+</head>
+<body>
+
+<div class="result-container">
+    <div id="result-message"></div>
+    <button class="button" onclick="location.href='feedback.html'">Continuez !</button>
+</div>
+
+<script>
+    // Simuler un score pour démonstration
+    const score = parseInt(sessionStorage.getItem("score") || 0);
+    const resultMessage = document.getElementById("result-message");
+
+    let message;
+    if (score >= 12) {
+        message = `
+            <div class="result-message">
+                <h3>🎉 Félicitations à vous ! 🎉</h3>
+                <p>Vous avez une santé rénale relativement bonne. Vous avez obtenu un score de 12. Néanmoins, voici quelques améliorations que vous pouvez adopter au quotidien.</p>
+                <ul>
+                    <li>💧 <strong>Augmentez votre consommation d'eau par jour </strong> pour maintenir votre hydratation.</li>
+                    <li>🏃‍♂️ <strong>Faire de l'activité physique régulière</strong> &nbsp; pour stimuler vos reins.</li>
+                    <li>🚫 <strong>Éviter l'automédication</strong> &nbsp; pour réduire le risque de complications.</li>
+                    <li>🥗 <strong>Adopter une alimentation saine</strong> &nbsp; pour renforcer votre santé globale.</li>
+                </ul>
+            </div>
+        `;
+    } else if (score >= 6) {
+        message = `
+            <div class="result-message">
+                <h3>💡 Améliorations Recommandées 💡</h3>
+                <p>Votre santé rénale est relativement bonne, mais quelques améliorations peuvent être apportées et que vous pouvez adopter dans votre vie au quotidien.</p>
+                <ul>
+                    <li>💧 <strong>Augmentez votre consommation d'eau (Au moins 1,5L) </strong>&nbsp; pour faciliter la filtration des déchets par le rein.</li>
+                    <li>🍽️ <strong>Limitez la consommation des aliments salés et transformés </strong>&nbsp; qui détruisent vos reins.</li>
+                    <li>🚶‍♂️ <strong>Faire du sport, un rituel </strong>&nbsp; pour avoir une bonne santé cardio-vasculaire.</li>
+                    <li>🩺 <strong>Planifiez un bilan de santé annuel</strong>&nbsp;  pour surveiller votre santé rénale.</li>
+                </ul>
+            </div>
+        `;
+    } else {
+        message = `
+            <div class="result-message">
+                <h3>⚠️ Attention ⚠️</h3>
+                <p>Votre santé rénale présente des signes préoccupants. Il vius est conseillé de consulter un professionnel.</p>
+                <ul>
+                    <li>💧 <strong>Hydratez-vous régulièrement</strong>&nbsp; pour aider votre système rénal.</li>
+                    <li>🍏 <strong>Optez pour une alimentation équilibrée</strong>&nbsp; pour alléger la charge sur vos reins.</li>
+                    <li>🩺 <strong>Consultez un professionnel de santé</strong>&nbsp; pour un suivi personnalisé.</li>
+                    <li>⚖️ <strong>Évitez la sédentarité</strong>&nbsp; en intégrant de l'exercice léger chaque jour.</li>
+                </ul>
+            </div>
+        `;
+    }
+
+    resultMessage.innerHTML = message;
+</script>
+
+</body>
+</html>

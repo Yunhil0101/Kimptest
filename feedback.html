@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/jpg" href="favicon.jpg"/>
+</head>
+<body class="feedback-page">
+    <div class="feedback-container">
+        <h1>Merci d'avoir participé à ce mini test.</h1>
+        <h3>Vous pouvez remplir ce formulaire pour bénéficier d'astuces et de meilleurs conseils au quotidien pour avoir une hygiène rénale irréprochable.</h3>
+        <form id="feedback-form" action="https://formspree.io/f/xyzyklve" method="POST">
+            <label for="name">Nom :</label>
+            <input type="text" id="name" name="name" required>
+            
+            <label for="email">Email :</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="phone">Numéro de téléphone :</label>
+            <input type="tel" id="phone" name="phone">
+
+            <label for="feedback">Comment avez-vous trouvé l'événement ?</label>
+            <select id="feedback" name="feedback" required>
+                <option value="vide"></option>
+                <option value="tresbien">Très Bien</option>
+                <option value="bien">Bien</option>
+                <option value="pasmal">Pas mal</option>
+                <option value="Peut mieux faire">Peut mieux faire</option>
+            </select>
+
+            <label for="commentaires">Commentaires :</label>
+            <input type="text" id="commentaires" name="commentaires">
+            <BR>
+            <BR>     
+            <button type="submit">Envoyer</button>
+        </form>  
+
+        <footer class="footer">
+            <div class="nav-links">
+                <a href="https://www.instagram.com/nephro__.world/">Vous pouvez nous rejoindre sur notre chaîne instagram pour en savoir plus😊</a>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

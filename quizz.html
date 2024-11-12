@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/jpg" href="favicon.jpg"/>
+    <title>Quiz Santé Rénale</title>
+    <style>
+        /* Styles de base pour la mise en page */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        #welcome-screen, #nb-message, #question-box, #result {
+            display: none;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1, h2, p {
+            color: #4B0082;
+        }
+
+        .button {
+            background-color: #FF8C00;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .button:hover {
+            background-color: #FFA500;
+        }
+        
+        .result-message {
+            padding: 20px;
+            background-color: #e6f7ff;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .result-message h3 {
+            color: #4B0082;
+            margin-bottom: 15px;
+        }
+
+        .result-message ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .result-message ul li {
+            background-color: #fff;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .result-message ul li:hover {
+            transform: translateX(10px);
+            background-color: #ffeb3b;  /* Highlight color on hover */
+        }
+
+        .result-message ul li strong {
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        /* Ajout d'icônes dans les éléments de la liste */
+        .result-message ul li::before {
+            content: "✔️";
+            margin-right: 10px;
+            font-size: 20px;
+        }
+
+        /* Ajouter une animation légère au message */
+        .result-message {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        /* Animation fade-in pour rendre l'apparition du message plus fluide */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+<div id="welcome-screen">
+    <h1>Bienvenue sur le Quiz Santé Rénale</h1>
+    <button class="button" onclick="showNB()">Commencer</button>
+</div>
+
+<div id="nb-message">
+    <h2>Note Importante</h2>
+    <p>Ce test ne remplace pas un bilan rénal complet (par ex., analyses d'urée, créatinine) nécessaire pour confirmer l'état de santé de vos reins.</p>
+    <button class="button" onclick="demarrerQuiz()">Continuer</button>
+</div>
+
+<div id="question-box">
+    <h2 id="question-number"></h2>
+    <p id="question"></p>
+    <button class="button" onclick="answer('oui')">Oui</button>
+    <button class="button" onclick="answer('non')">Non</button>
+</div>
+
+<div id="result"></div>
+
+<script>
+    function showNB() {
+        document.getElementById("welcome-screen").style.display = "none";
+        document.getElementById("nb-message").style.display = "block";
+    }
+
+    function demarrerQuiz() {
+        document.getElementById("nb-message").style.display = "none";
+        document.getElementById("question-box").style.display = "block";
+        afficherQuestion();
+    }
+
+    const questions = [
+        { question: "Avez-vous constaté un changement dans la fréquence, la couleur, ou l'odeur de vos urines, comme une urine mousseuse ?", pointsOui: 0, pointsNon: 2 },
+        { question: "Êtes-vous hypertendu ou diabétique ?", pointsOui: 0, pointsNon: 2 },
+        { question: "Avez-vous des œdèmes (gonflement des pieds et des chevilles) ?", pointsOui: 0, pointsNon: 2 },
+        { question: "Votre haleine a-t-elle une odeur ammoniacale ?", pointsOui: 0, pointsNon: 2 },
+        { question: "Vous sentez-vous constamment fatigué(e) ?", pointsOui: 0, pointsNon: 2 },
+        { question: "Ressentez-vous des douleurs dans le bas du dos, non liées à une position inconfortable ?", pointsOui: 0, pointsNon: 2 },
+        { question: "Prenez-vous régulièrement des médicaments traditionnels ou des anti-inflammatoires (comme l'ibuprofène) lorsque vous êtes malade ?", pointsOui: 0, pointsNon: 2 }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+
+    function afficherQuestion() {
+        if (currentQuestion < questions.length) {
+            document.getElementById("question-number").innerText = `Question ${currentQuestion + 1} sur ${questions.length}`;
+            document.getElementById("question").innerText = questions[currentQuestion].question;
+        } else {
+            afficherResultat();
+        }
+    }
+
+    function answer(response) {
+        const current = questions[currentQuestion];
+        score += response === 'oui' ? current.pointsOui : current.pointsNon;
+        currentQuestion++;
+        afficherQuestion();
+    }
+
+    function afficherResultat() {
+        document.getElementById("question-box").style.display = "none";
+        const result = document.getElementById("result");
+        result.style.display = "block";
+
+        let message;
+        if (score >= 12) {
+            message = `
+                <div class="result-message">
+                    <h3>🎉 Félicitations ! 🎉</h3>
+                    <p>Vous avez une santé rénale optimale !</p>
+                    <ul>
+                        <li>💧 <strong>Boire 1,5 L d'eau par jour</strong> pour maintenir votre hydratation.</li>
+                        <li>🏃‍♂️ <strong>Faire de l'activité physique régulière</strong> pour stimuler vos reins.</li>
+                        <li>🚫 <strong>Éviter l'automédication</strong> pour réduire le risque de complications.</li>
+                        <li>🥗 <strong>Adopter une alimentation saine</strong> pour renforcer votre santé globale.</li>
+                    </ul>
+                </div>
+            `;
+        } else if (score >= 6) {
+            message = `
+                <div class="result-message">
+                    <h3>💡 Améliorations Recommandées 💡</h3>
+                    <p>Votre santé rénale est relativement bonne, mais quelques améliorations peuvent être apportées.</p>
+                    <ul>
+                        <li>💧 <strong>Augmentez votre consommation d'eau</strong> pour mieux hydrater vos reins.</li>
+                        <li>🍽️ <strong>Limitez les aliments salés et transformés</strong> qui peuvent solliciter vos reins.</li>
+                        <li>🚶‍♂️ <strong>Intégrez des promenades quotidiennes</strong> pour soutenir votre système rénal.</li>
+                        <li>🩺 <strong>Planifiez un bilan de santé annuel</strong> pour surveiller votre santé rénale.</li>
+                    </ul>
+                </div>
+            `;
+        } else {
+            message = `
+                <div class="result-message">
+                    <h3>⚠️ Attention ⚠️</h3>
+                    <p>Votre santé rénale présente des signes préoccupants. Il est conseillé de consulter un professionnel.</p>
+                    <ul>
+                        <li>💧 <strong>Hydratez-vous régulièrement</strong> pour aider votre système rénal.</li>
+                        <li>🍏 <strong>Optez pour une alimentation équilibrée</strong> pour alléger la charge sur vos reins.</li>
+                        <li>🩺 <strong>Consultez un professionnel de santé</strong> pour un suivi personnalisé.</li>
+                        <li>⚖️ <strong>Évitez la sédentarité</strong> en intégrant de l'exercice léger chaque jour.</li>
+                    </ul>
+                </div>
+            `;
+        }
+
+        result.innerHTML = `<div>${message}</div><button class="button" onclick="location.href='feedback.html'">Continuez !</button>`;
+    }
+
+    // Afficher l'écran d'accueil au démarrage
+    document.getElementById("welcome-screen").style.display = "block";
+</script>
+
+</body>
+</html>

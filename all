@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nephro World - Votre guide rénal quotidien</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/jpg" href="favicon.webp"/>
+</head>
+<body>
+    <header class="header">
+        <img src="logo.png" alt="Nephro World Logo" class="logo">
+        <h1>Nephro World</h1>
+        <p>🌟Santé rénale 🩺</p>
+        <p>📚 Révise ta néphro</p>
+        <p>💡 Astuces et conseils santé rénale</p>
+        <p>🎥 Documentaires inspirants</p>
+    </header>
+
+    <!-- Main Section -->
+    <main class="main-content">
+        <!-- Cadre principal du quiz -->
+        <div id="quiz-container">
+        
+            <!-- Page d'accueil -->
+            <div id="welcome-screen" class="quiz-box">
+                <h2>Medicine Healthcare</h2>
+                <p>Nous sommes dédiés à vous fournir des informations et des outils pour prendre soin de vos reins. Rejoignez-nous pour un avenir plus sain.</p>
+                <button onclick="showNB()">Let's go !</button>
+            </div>
+
+            <!-- Message NB avant de commencer -->
+            <div id="nb-message" class="quiz-box" style="display:none;">
+                <p><strong>NB :</strong> Ce test ne remplace pas un bilan rénal complet (par ex., analyses d'urée, créatinine) nécessaire pour confirmer l'état de santé de vos reins.</p>
+                <button onclick="demarrerQuiz()">Démarrer le quiz</button>
+            </div>
+
+            <!-- Cadre de question du quiz -->
+            <div id="question-box" class="quiz-box" style="display:none;">
+                <p id="question-number"></p> <!-- Affichage du numéro de la question -->
+                <p id="question"></p>
+                <div id="buttons">
+                    <button onclick="answer('oui')">Oui</button>
+                    <button onclick="answer('non')">Non</button>
+                </div>
+            </div>
+
+            <!-- Cadre de résultat -->
+            <div id="result" class="quiz-box" style="display:none;"></div>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="nav-links">
+            <a href="https://www.instagram.com/nephro__.world/">À propos de nous</a>
+            <a href="https://www.instagram.com/nephro__.world/">Contact</a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+/* Style général */
+body {
+    font-family: Arial, sans-serif;
+    color: #333;
+    background-color: #f5f7fe;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    padding: 15px; /* réduit l'espacement */
+    color: #32a852;
+}
+
+.header h1 {
+    font-size: 1.8em; /* taille réduite */
+    font-weight: bold;
+}
+
+.header p {
+    color: #32a852;
+    font-size: 1em; /* taille réduite */
+}
+
+/* Main Content */
+.main-content {
+    background-color: #8caee0;
+    padding: 30px; /* réduit l'espacement */
+    border-radius: 8px; /* légèrement plus petit */
+    width: 75%; /* réduit la largeur */
+    max-width: 500px;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.intro-text h2 {
+    font-size: 1.6em; /* taille réduite */
+    color: white;
+    margin-bottom: 15px;
+}
+
+.intro-text p {
+    color: white;
+    margin-bottom: 15px; /* réduit l'espacement */
+}
+
+.intro-text input[type="email"] {
+    padding: 8px; /* réduit le padding */
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    width: 65%; /* légèrement réduit */
+    margin-right: 8px;
+}
+
+.cta-button {
+    background-color: #ff6b6b;
+    color: white;
+    padding: 8px 16px; /* réduit le padding */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em; /* taille réduite */
+}
+
+.cta-button:hover {
+    background-color: #ff5a5a;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 15px; /* réduit l'espacement */
+    color: #32a852;
+    margin-top: 15px;
+}
+
+.footer .nav-links a {
+    color: #32a852;
+    margin: 0 8px; /* réduit l'espacement entre les liens */
+    text-decoration: none;
+}
+
+.footer .nav-links a:hover {
+    text-decoration: underline;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .main-content {
+        width: 85%;
+    }
+}
+
+
+function showNB() {
+    document.getElementById("welcome-screen").style.display = "none";
+    document.getElementById("nb-message").style.display = "block";
+}
+
+function demarrerQuiz() {
+    document.getElementById("nb-message").style.display = "none";
+    document.getElementById("question-box").style.display = "block";
+    afficherQuestion();
+}
+
+const questions = [
+    { question: "Avez-vous constaté un changement dans la fréquence, la couleur, ou l'odeur de vos urines ?", pointsOui: 0, pointsNon: 2 },
+    { question: "Êtes-vous hypertendu ou diabétique ?", pointsOui: 0, pointsNon: 2 },
+    { question: "Avez-vous des œdèmes ?", pointsOui: 0, pointsNon: 2 },
+    { question: "Votre haleine a-t-elle une odeur ammoniacale ?", pointsOui: 0, pointsNon: 2 },
+    { question: "Vous sentez-vous constamment fatigué(e) ?", pointsOui: 0, pointsNon: 2 },
+    { question: "Ressentez-vous des douleurs dans le bas du dos ?", pointsOui: 0, pointsNon: 2 },
+    { question: "Prenez-vous régulièrement des médicaments traditionnels ?", pointsOui: 0, pointsNon: 2 }
+];
+
+let currentQuestion = 0;
+let score = 0;
+
+function afficherQuestion() {
+    if (currentQuestion < questions.length) {
+        document.getElementById("question-number").innerText = `Question ${currentQuestion + 1} sur ${questions.length}`;
+        document.getElementById("question").innerText = questions[currentQuestion].question;
+
+        const questionBox = document.getElementById("question-box");
+        questionBox.style.opacity = 0;
+        questionBox.style.display = "block";
+        setTimeout(() => {
+            questionBox.style.opacity = 1;
+        }, 50);
+    } else {
+        afficherResultat();
+    }
+}
+
+function answer(response) {
+    const current = questions[currentQuestion];
+    score += response === 'oui' ? current.pointsOui : current.pointsNon;
+
+    const questionBox = document.getElementById("question-box");
+    questionBox.style.opacity = 1;
+    setTimeout(() => {
+        questionBox.style.opacity = 0;
+        currentQuestion++;
+        afficherQuestion();
+    }, 1000);
+}
+
+function afficherResultat() {
+    document.getElementById("question-box").style.display = "none";
+    const result = document.getElementById("result");
+    result.style.display = "block";
+
+    let message;
+    if (score >= 12) {
+        message = `
+            <div class="result-message">
+                <h3>Félicitations !</h3>
+                <p>Vous avez une santé rénale optimale !</p>
+                <ul>
+                    <li>💧 <strong>Boire 1,5 L d'eau par jour</strong></li>
+                    <li>🏃‍♂️ <strong>Faire de l'activité physique régulière</strong></li>
+                    <li>🚫 <strong>Éviter l'automédication</strong></li>
+                    <li>🥗 <strong>Adopter une alimentation saine</strong></li>
+                </ul>
+            </div>
+        `;
+    } else if (score >= 6) {
+        message = "Votre santé rénale est relativement bonne, mais quelques améliorations sont recommandées.";
+    } else {
+        message = "Votre santé rénale semble défectueuse. Consultez un professionnel.";
+    }
+
+    result.innerHTML = `<div>${message}</div><button onclick="location.href='feedback.html'">Continuez !</button>`;
+}
+
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Santé Rénale</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="quiz-container">
+        <header class="header">
+            <h1>Test de Santé Rénale</h1>
+        </header>
+        <div id="welcome-screen" class="quiz-box">
+            <h2>Bienvenue !</h2>
+            <p>Ce test rapide vous permettra d'évaluer l'état de votre santé rénale.</p>
+            <button onclick="showNB()">Commencer</button>
+        </div>
+        <div id="nb-message" class="quiz-box" style="display:none;">
+            <p><strong>NB :</strong> Ce test ne remplace pas un bilan complet.</p>
+            <button onclick="demarrerQuiz()">Démarrer le quiz</button>
+        </div>
+        <div id="question-box" class="quiz-box" style="display:none;">
+            <p id="question-number"></p>
+            <p id="question"></p>
+            <div id="buttons">
+                <button onclick="answer('oui')">Oui</button>
+                <button onclick="answer('non')">Non</button>
+            </div>
+        </div>
+        <div id="result" class="quiz-box" style="display:none;"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="feedback-page">
+    <div class="feedback-container">
+        <h1>Merci d'avoir fait le test !</h1>
+        <h2>Il vous serait gré de bien vouloir remplir ce formulaire.</h2>
+        <form id="feedback-form" action="https://formspree.io/f/xyzyklve" method="POST">
+            <label for="name">Nom :</label>
+            <input type="text" id="name" name="name" required>
+            
+            <label for="email">Email :</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="phone">Numéro de téléphone :</label>
+            <input type="tel" id="phone" name="phone" required>
+
+            <label for="feedback">Comment avez-vous trouvé l'événement ?</label>
+            <select id="feedback" name="feedback" required>
+                <option value="tresbien">Très Bien</option>
+                <option value="bien">Bien</option>
+                <option value="pasmal">Pas mal</option>
+                <option value="Peut mieux faire">Peut mieux faire</option>
+            </select>
+
+            <label for="commentaires">Commentaires :</label>
+            <input type="text" id="commentaires" name="commentaires" required>
+
+            <button type="submit">Envoyer</button>
+        </form>
+    </div>
+</body>
+</html>
+
+
+dans quizzzzzz
+<div id="welcome-screen" class="quiz-box">
+    <h2>Bienvenue !</h2>
+    <p>Ce test rapide vous permettra d'évaluer l'état de votre santé rénale.</p>
+    <button onclick="showNB()">Commencer</button>
+</div>
+
+<div id="nb-message" class="quiz-box" style="display:none;">
+    <p><strong>NB :</strong> Ce test ne remplace pas un bilan complet.</p>
+    <button onclick="demarrerQuiz()">Démarrer le quiz</button>
+</div>
+
+
+
+
+
+function afficherResultat() {
+    document.getElementById("question-box").style.display = "none";
+
+    // Afficher la page de chargement
+    document.getElementById("loading-screen").style.display = "flex";
+    
+    // Simuler un délai pour le chargement
+    setTimeout(function() {
+        // Cacher la page de chargement
+        document.getElementById("loading-screen").style.display = "none";
+        
+        // Afficher le message des résultats après le chargement
+        const result = document.getElementById("result");
+        result.style.display = "block";
+
+        result.innerHTML = `<div>${message}</div><button class="button" onclick="location.href='formulaire.html'">Compléter le formulaire</button>`;
+    }, 3000); // Délai de 3 secondes pour simuler le chargement
+}
+document.getElementById("question-box").style.display = "none";
+        const result = document.getElementById("result");
+        result.style.display = "block";
+
+
+        <img src="KPVT1.png" alt="logo" class="transparent-image top-left">
+        <img src="KPVT2.png" alt="logo" class="transparent-image top-right">
+        <img src="KPVT3.png" alt="logo" class="transparent-image bottom-left">
+        <img src="KPVT3.png" alt="logo" class="transparent-image bottom-right">

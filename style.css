@@ -1,0 +1,225 @@
+/* Style général */
+body {
+    position: relative;
+    background-image: url('Background.webp'); /* Replace with the actual path */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('Background.webp'); /* Same background image */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: grayscale(40%) brightness(70%) saturate(10%) blur(0%) contrast(50%);
+    z-index: -1; /* Ensures the filter is applied behind the content */
+}
+
+
+
+body {
+    font-family: Arial, sans-serif;
+    color: #333;
+    background-color: #F0F0F0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo {
+    width: auto;
+    height: 200px;
+    scroll-margin-left: 20px;
+    margin-right: 20px;
+    opacity: 1;
+}
+
+.transparent-image {
+    position: fixed;
+    width: 1000px; /* ajustez la taille de l'image */
+    height: auto;
+    opacity: 0.8; /* ajustez la transparence de l'image */
+}
+
+
+/* Conteneur principal */
+.main-content {
+    background-color: #fff6d5;
+    padding: 40px;
+    border-radius: 15px;
+    max-width: 600px;
+    margin: 0 auto; /* Centrer horizontalement */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Header */
+.header {
+    text-align: center;
+    padding: 15px;
+    color: #FF9F1C;
+}
+
+.quiz-contain h1 {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: hsl(0, 0%, 100%);
+}
+
+.quiz-contain p1 {
+    color: hsl(0, 0%, 100%);
+    font-size: 1em;
+}
+
+/* Main Content */
+.main-content {
+    background-color: #FF9F1C; /* Couleur dorée douce */
+    padding: 30px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 550px;
+    text-align: center;
+    margin-top: 15px;
+}
+
+/* Suppression du cadre bleu */
+.container {
+    background: none;
+}
+
+/* Bouton CTA */
+.cta-button {
+    background-color: #ff8c00; /* Couleur dorée */
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+.cta-button:hover {
+    background-color: #ff9f1c;
+}
+
+/* Quiz Box Style */
+.quiz-box {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    width: 100%;
+    max-width: 500px;
+}
+
+/* Mise à jour des couleurs pour le Quiz */
+.quiz-box, #question-box, #nb-message, #result, .feedback-container {
+    background-color: #f0f0f0;
+    color: #4b0082; /* Violet foncé pour le texte */
+}
+
+.quiz-box button, #nb-message button, #question-box button, #feedback-form button {
+    background-color: #ff8c00;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.quiz-box button:hover, #nb-message button:hover, #question-box button:hover, #feedback-form button:hover {
+    background-color: #ffa500; /* Orange clair */
+}
+
+/* Feedback Page */
+.feedback-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.feedback-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+}
+
+.feedback-container h1,
+.feedback-container h2 {
+    color: #4b0082; /* Violet foncé */
+}
+
+#feedback-form label {
+    color: #4b0082;
+    font-size: 16px;
+    display: block;
+    margin-top: 15px;
+    text-align: left;
+}
+
+#feedback-form input,
+#feedback-form select,
+#feedback-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 15px;
+    color: #32a852;
+    margin-top: 15px;
+}
+
+.footer .nav-links a {
+    color: #FF9F1C;
+    margin: 0 8px;
+    text-decoration: none;
+}
+
+.footer .nav-links a:hover {
+    text-decoration: underline;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .main-content {
+        width: 85%;
+    }
+
+    .quiz-box {
+        padding: 15px;
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    .cta-button {
+        padding: 8px 16px;
+        font-size: 0.9em;
+    }
+}

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/jpg" href="favicon.jpg"/>
+    <title>Quiz Santé Rénale</title>
+    <style>
+        /* Styles de base pour la mise en page */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        
+
+        body {
+            position: relative;
+            background-image: url('Back1.webp'); /* Replace with the actual path */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('Back1.webp'); /* Same background image */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            filter: grayscale(40%) brightness(70%) saturate(10%) blur(0%) contrast(50%);
+            z-index: -1; /* Ensures the filter is applied behind the content */
+        }
+
+        #welcome-screen, #nb-message, #question-box {
+            display: none;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1, h2, p {
+            color: #4B0082;
+        }
+
+        .button {
+            background-color: #FF8C00;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .button:hover {
+            background-color: #FFA500;
+        }
+
+    </style>
+</head>
+<body>
+
+<div id="welcome-screen">
+    <h1>Bienvenue sur le Quiz Santé Rénale</h1>
+    <button class="button" onclick="showNB()">Commencer</button>
+</div>
+
+<div id="nb-message">
+    <h2>Note Importante</h2>
+    <p>Ce test ne remplace pas un bilan rénal complet (par ex., analyses d'urée, créatinine) nécessaire pour confirmer l'état de santé de vos reins.</p>
+    <button class="button" onclick="demarrerQuiz()">Continuer</button>
+</div>
+
+<div id="question-box">
+    <h2 id="question-number"></h2>
+    <p id="question"></p>
+    <button class="button" onclick="answer('oui')">Oui</button>
+    <button class="button" onclick="answer('non')">Non</button>
+</div>
+
+<script>
+    function showNB() {
+        document.getElementById("welcome-screen").style.display = "none";
+        document.getElementById("nb-message").style.display = "block";
+    }
+
+    function demarrerQuiz() {
+        document.getElementById("nb-message").style.display = "none";
+        document.getElementById("question-box").style.display = "block";
+        afficherQuestion();
+    }
+
+    const questions = [
+        { question: "Avez-vous constaté un changement dans la fréquence, la couleur, ou l'odeur de vos urines, comme une urine mousseuse ?", pointsOui: 0, pointsNon: 2 },
+        { question: "Êtes-vous hypertendu ou diabétique ?", pointsOui: 0, pointsNon: 2 },
+        { question: "Avez-vous des œdèmes (gonflement des pieds et des chevilles) ?", pointsOui: 0, pointsNon: 2 },
+        { question: "Votre haleine a-t-elle une odeur ammoniacale (odeur semblable à celle des urines) ?", pointsOui: 0, pointsNon: 2 },
+        { question: "Avez vous l'impression d'être constamment fatigué(e) ?", pointsOui: 0, pointsNon: 2 },
+        { question: "Ressentez-vous des douleurs dans le bas du dos, non liées à une position inconfortable ?", pointsOui: 0, pointsNon: 2 },
+        { question: "Prenez-vous régulièrement des médicaments traditionnels, des antalgiques ou des anti-inflammatoires (AINS,comme l'ibuprofène etc...) lorsque vous êtes malade ?", pointsOui: 0, pointsNon: 2 }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+
+    function afficherQuestion() {
+        if (currentQuestion < questions.length) {
+            document.getElementById("question-number").innerText = `Question ${currentQuestion + 1} sur ${questions.length}`;
+            document.getElementById("question").innerText = questions[currentQuestion].question;
+        } else {
+            redirectToLoading();
+        }
+    }
+
+    function answer(response) {
+        const current = questions[currentQuestion];
+        score += response === 'oui' ? current.pointsOui : current.pointsNon;
+        currentQuestion++;
+        afficherQuestion();
+    }
+
+    function redirectToLoading() {
+        document.getElementById("question-box").style.display = "none";
+        // Enregistrer le score dans sessionStorage
+        sessionStorage.setItem("score", score);
+        // Rediriger vers la page loading.html
+        window.location.href = "loading.html";
+    }
+
+    // Initialisation de l'écran de bienvenue
+    document.getElementById("welcome-screen").style.display = "block";
+</script>
+
+</body>
+</html>
